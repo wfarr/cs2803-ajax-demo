@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Select List Demo</title>
+    <script type="text/javascript" src="prototype.js"></script>
+    <script type="text/javascript" src="dynamic_select.js"></script>
+  </head>
+  <body>
+    <p>Welcome to you!</p>
+    
+    <p>These are the top songs:</p>
+    <ul>
+      <% @top.each do |top_song| %>
+      <li><%= top_song.name %> by <%= top_song.artist.name %></li>
+      <% end %>
+    </ul>
+    
+    <p>You can vote for songs here:</p>
+    
+    <form method="post" action="/vote" onsubmit="return validateInput()">
+      <p>Genres: 
+      <select id="genres_select" onChange="updateArtists()">
+        <option value="0">Select a genre</option>
+        <% @genres.each do |genre| %>
+        <option value="<%= genre.id %>"><%= genre.name %></option>
+        <% end %>
+      </select>
+      </p>
+      <p>Artists:
+        <select id="artists_select" disabled onChange="updateSongs()">
+        </select>
+      </p>
+      <p>Songs:
+        <select id="songs_select" disabled name="song_id">
+        </select>
+      </p>
+      <input type="submit" id="button" value="Vote!">
+    </form>
+  </body>
+</html>
